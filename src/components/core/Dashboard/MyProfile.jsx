@@ -1,121 +1,121 @@
-import React from "react";
+import { formattedDate } from "../../../utils/dateFormatter";
+import IconBtn from "../../common/IconBtn";
+import { RiEditBoxLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { CustomButton } from "../../common/Forms";
-import { FaRegEdit } from "react-icons/fa";
 
-const MyProfile = () => {
+export default function MyProfile() {
   const { user } = useSelector((state) => state.profile);
   const navigate = useNavigate();
 
   return (
     <>
-      <div className="flex flex-col gap-7 h-screen text-richblack-25">
-        <h1 className="text-3xl font-bold">My Profile</h1>
-        {/* Section 1 */}
-
-        <div className="flex items-center justify-between bg-richblack-800 px-5 py-5">
-          <div className="flex items-center gap-5">
-            <img
-              src={user?.image}
-              alt="text"
-              className="aspect-square w-[78px] rounded-full object-cover "
-            />
-            <div>
-              <p className="font-bold">
-                {user?.firstName} {user?.lastName}
-              </p>
-              <p className="text-richblack-500 font-semibold">{user.email}</p>
-            </div>
-          </div>
-          <div className="bg-yellow-25 p-1 text-richblack-700 flex items-center gap-x-3">
-            <CustomButton
-              text="Edit"
-              onClick={() => {
-                navigate("/dashboard/settings");
-              }}
-              customClass="text-[16px] font-semibold text-richblack-700"
-            />
-            <FaRegEdit className="text-lg font-bold" />
+      <h1 className="mb-14 text-3xl font-medium text-richblack-5">
+        My Profile
+      </h1>
+      <div className="flex items-center justify-between rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+        <div className="flex items-center gap-x-4">
+          <img
+            src={user?.image}
+            alt={`profile-${user?.firstName}`}
+            className="aspect-square w-[78px] rounded-full object-cover"
+          />
+          <div className="space-y-1">
+            <p className="text-lg font-semibold text-richblack-5">
+              {user?.firstName + " " + user?.lastName}
+            </p>
+            <p className="text-sm text-richblack-300">{user?.email}</p>
           </div>
         </div>
-
-        {/* Section 2 */}
-        <div className="flex flex-col gap-3  bg-richblack-800 px-5 py-5">
-          <div className="flex justify-between gap-2">
-            <p className="font-bold text-3xl">About</p>
-            <div className="bg-yellow-25 p-1 text-richblack-700 flex items-center gap-x-3">
-              <CustomButton
-                text="Edit"
-                onClick={() => {
-                  navigate("dashboard/settings");
-                }}
-                customClass="text-[16px] font-semibold text-richblack-700"
-              />
-              <FaRegEdit className="text-lg font-bold" />
-            </div>
-          </div>
-          <p className="w-[80%] text-justify">
-            {user?.additionalDetails?.about
-              ? user?.additionalDetails?.about
-              : "Hello"}
+        <IconBtn
+          text="Edit"
+          onclick={() => {
+            navigate("/dashboard/settings");
+          }}
+        >
+          <RiEditBoxLine />
+        </IconBtn>
+      </div>
+      <div className="my-10 flex flex-col gap-y-10 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+        <div className="flex w-full items-center justify-between">
+          <p className="text-lg font-semibold text-richblack-5">About</p>
+          <IconBtn
+            text="Edit"
+            onclick={() => {
+              navigate("/dashboard/settings");
+            }}
+          >
+            <RiEditBoxLine />
+          </IconBtn>
+        </div>
+        <p
+          className={`${
+            user?.additionalDetails?.about
+              ? "text-richblack-5"
+              : "text-richblack-400"
+          } text-sm font-medium`}
+        >
+          {user?.additionalDetails?.about ?? "Write Something About Yourself"}
+        </p>
+      </div>
+      <div className="my-10 flex flex-col gap-y-10 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+        <div className="flex w-full items-center justify-between">
+          <p className="text-lg font-semibold text-richblack-5">
+            Personal Details
           </p>
+          <IconBtn
+            text="Edit"
+            onclick={() => {
+              navigate("/dashboard/settings");
+            }}
+          >
+            <RiEditBoxLine />
+          </IconBtn>
         </div>
-        {/* section 3 */}
-        <div className="flex flex-col gap-3  bg-richblack-800 px-5 py-5">
-          <div className="flex justify-between gap-2">
-            <p className="font-bold text-3xl">Personal Details</p>
-            <div className="bg-yellow-25 p-1 text-richblack-700 flex items-center gap-x-3">
-              <CustomButton
-                text="Edit"
-                onClick={() => {
-                  navigate("dashboard/settings");
-                }}
-                customClass="text-[16px] font-semibold text-richblack-700"
-              />
-              <FaRegEdit className="text-lg font-bold" />
+        <div className="flex max-w-[500px] justify-between">
+          <div className="flex flex-col gap-y-5">
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">First Name</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {user?.firstName}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">Email</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {user?.email}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">Gender</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {user?.additionalDetails?.gender ?? "Add Gender"}
+              </p>
             </div>
           </div>
-          <div className="flex w-[60%] justify-between items-center">
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-2">
-                <p className="text-richblack-600">First Name </p>
-                <p> {user?.firstName}</p>
-              </div>
-              <div className="flex flex-col gap-2">
-                <p className="text-richblack-600">Email</p>
-                <p>{user?.email}</p>
-              </div>
-              <div className="flex flex-col gap-2">
-                <p className="text-richblack-600">Gender</p>
-                <p>{user?.additionalDetails?.gender ?? "Add Your Gender"}</p>
-              </div>
+          <div className="flex flex-col gap-y-5">
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">Last Name</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {user?.lastName}
+              </p>
             </div>
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-2">
-                <p className="text-richblack-600">Last Name</p>
-                <p>{user?.lastName}</p>
-              </div>
-              <div className="flex flex-col gap-2">
-                <p className="text-richblack-600">Contact Number</p>
-                <p>
-                  {user?.additionalDetails?.contactNumber ??
-                    "Add your contact number"}
-                </p>
-              </div>
-              <div className="flex flex-col gap-2">
-                <p className="text-richblack-600">Date of Birth</p>
-                <p>
-                  {user?.additionalDetails?.dateofbirth ??
-                    "Add your date of birth"}
-                </p>
-              </div>
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">Phone Number</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {user?.additionalDetails?.contactNumber ?? "Add Contact Number"}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">Date Of Birth</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {formattedDate(user?.additionalDetails?.dateOfBirth) ??
+                  "Add Date Of Birth"}
+              </p>
             </div>
           </div>
         </div>
       </div>
     </>
   );
-};
-
-export default MyProfile;
+}

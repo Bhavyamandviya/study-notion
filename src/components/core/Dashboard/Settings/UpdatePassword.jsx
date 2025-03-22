@@ -1,11 +1,10 @@
+import { changePassword } from "../../../../services/operations/SettingsAPI";
+import IconBtn from "../../../common/IconBtn";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import { changePassword } from "../../../../services/operations/SettingsAPI";
-import { CustomButton } from "../../../common/Forms";
 
 export default function UpdatePassword() {
   const { token } = useSelector((state) => state.auth);
@@ -36,10 +35,7 @@ export default function UpdatePassword() {
           <h2 className="text-lg font-semibold text-richblack-5">Password</h2>
           <div className="flex flex-col gap-5 lg:flex-row">
             <div className="relative flex flex-col gap-2 lg:w-[48%]">
-              <label
-                htmlFor="oldPassword"
-                className="text-[0.875rem] text-richblack-5 mb-1 leading-[1.375rem] capitalize"
-              >
+              <label htmlFor="oldPassword" className="lable-style">
                 Current Password
               </label>
               <input
@@ -47,7 +43,7 @@ export default function UpdatePassword() {
                 name="oldPassword"
                 id="oldPassword"
                 placeholder="Enter Current Password"
-                className="bg-richblack-700 rounded-[0.5rem] text-richblack-5 w-full p-[12px] border-b-richblack-25 border-b-2"
+                className="form-style"
                 {...register("oldPassword", { required: true })}
               />
               <span
@@ -67,10 +63,7 @@ export default function UpdatePassword() {
               )}
             </div>
             <div className="relative flex flex-col gap-2 lg:w-[48%]">
-              <label
-                htmlFor="newPassword"
-                className="text-[0.875rem] text-richblack-5 mb-1 leading-[1.375rem] capitalize"
-              >
+              <label htmlFor="newPassword" className="lable-style">
                 New Password
               </label>
               <input
@@ -78,7 +71,7 @@ export default function UpdatePassword() {
                 name="newPassword"
                 id="newPassword"
                 placeholder="Enter New Password"
-                className="bg-richblack-700 rounded-[0.5rem] text-richblack-5 w-full p-[12px] border-b-richblack-25 border-b-2"
+                className="form-style"
                 {...register("newPassword", { required: true })}
               />
               <span
@@ -108,11 +101,7 @@ export default function UpdatePassword() {
           >
             Cancel
           </button>
-          <CustomButton
-            type="submit"
-            text="Update"
-            customClass="cursor-pointer rounded-md bg-yellow-100 py-2 px-5 font-semibold text-richblack-700"
-          />
+          <IconBtn type="submit" text="Update" />
         </div>
       </form>
     </>

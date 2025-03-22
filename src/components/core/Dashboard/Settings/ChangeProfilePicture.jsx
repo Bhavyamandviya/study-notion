@@ -1,9 +1,8 @@
+import { updateDisplayPicture } from "../../../../services/operations/SettingsAPI";
+import IconBtn from "../../../common/IconBtn";
 import { useEffect, useRef, useState } from "react";
 import { FiUpload } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-
-import { updateDisplayPicture } from "../../../../services/operations/SettingsAPI";
-import { CustomButton } from "../../../common/Forms";
 
 export default function ChangeProfilePicture() {
   const { token } = useSelector((state) => state.auth);
@@ -83,15 +82,14 @@ export default function ChangeProfilePicture() {
               >
                 Select
               </button>
-              <CustomButton
-                customClass="cursor-pointer rounded-md bg-yellow-100 py-2 px-5 font-semibold text-richblack-700 flex gap-2"
+              <IconBtn
                 text={loading ? "Uploading..." : "Upload"}
                 onclick={handleFileUpload}
               >
                 {!loading && (
                   <FiUpload className="text-lg text-richblack-900" />
                 )}
-              </CustomButton>
+              </IconBtn>
             </div>
           </div>
         </div>
