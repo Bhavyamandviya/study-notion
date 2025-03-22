@@ -1,49 +1,59 @@
+// Importing necessary modules and packages
 const express = require("express");
-
 const app = express();
-
-const userRoute = require("./src/routes/UserRoute");
-const courseRoute = require("./src/routes/CourseRoute");
-const profileRoute = require("./src/routes/ProfileRoute");
-const paymentRoute = require("./src/routes/PaymentRoute");
-const dbconnect = require("./src/database/database");
+const userRoutes = require("./src/routes/user");
+const profileRoutes = require("./src/routes/profile");
+const courseRoutes = require("./src/routes/Course");
+const paymentRoutes = require("./src/routes/Payments");
+const contactUsRoute = require("./src/routes/Contact");
+const dbconnect = require("./src/config/database");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-
-const { cloudinaryConnect } = require("./src/database/cloudinary");
-const fileupload = require("express-fileupload");
+const { cloudinaryConnect } = require("./src/config/cloudinary");
+const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
 
-const PORT = process.env.PORT || 8080;
+// Setting up port number
+const PORT = process.env.PORT || 4000;
+
+// Loading environment variables from .env file
+dotenv.config();
+
+// Middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "*",
     credentials: true,
   })
 );
 app.use(
-  fileupload({
+  fileUpload({
     useTempFiles: true,
-    tempFileDir: "/tmp",
+    tempFileDir: "/tmp/",
   })
 );
 
+// Connecting to cloudinary
 cloudinaryConnect();
-app.use("/api/v1/auth", userRoute);
-app.use("/api/v1/profile", profileRoute);
-app.use("/api/v1/course", courseRoute);
-app.use("/api/v1/payment", paymentRoute);
 
+// Setting up routes
+app.use("/api/v1/auth", userRoutes);
+app.use("/api/v1/profile", profileRoutes);
+app.use("/api/v1/course", courseRoutes);
+app.use("/api/v1/payment", paymentRoutes);
+app.use("/api/v1/reach", contactUsRoute);
+
+// Testing the server
 app.get("/", (req, res) => {
-  console.log("chalu");
   return res.json({
     success: true,
-    message: "Hello",
+    message: "Your server is up and running ...",
   });
 });
 
+// Listening to the server
 const listen = async () => {
   try {
     dbconnect();
@@ -56,3 +66,4 @@ const listen = async () => {
 };
 
 listen();
+// End of code.

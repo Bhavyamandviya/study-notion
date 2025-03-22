@@ -1,20 +1,20 @@
 // Import the required modules
-const express = require("express");
-const router = express.Router();
+const express = require("express")
+const router = express.Router()
 
 // Import the required controllers and middleware functions
-
-const { auth } = require("../middleware/authmiddlware");
 const {
   login,
-  signUp,
-  sendOTP,
+  signup,
+  sendotp,
   changePassword,
-} = require("../controller/Auth");
+} = require("../controllers/Auth")
 const {
+  resetPasswordToken,
   resetPassword,
-  updatePassword,
-} = require("../controller/ForgotPassword");
+} = require("../controllers/resetPassword")
+
+const { auth } = require("../middleware/auth")
 
 // Routes for Login, Signup, and Authentication
 
@@ -23,26 +23,26 @@ const {
 // ********************************************************************************************************
 
 // Route for user login
-router.post("/login", login);
+router.post("/login", login)
 
 // Route for user signup
-router.post("/signup", signUp);
+router.post("/signup", signup)
 
 // Route for sending OTP to the user's email
-router.post("/sendotp", sendOTP);
+router.post("/sendotp", sendotp)
 
 // Route for Changing the password
-router.post("/changepassword", auth, changePassword);
+router.post("/changepassword", auth, changePassword)
 
 // ********************************************************************************************************
 //                                      Reset Password
 // ********************************************************************************************************
 
 // Route for generating a reset password token
-router.post("/reset-password-token", resetPassword);
+router.post("/reset-password-token", resetPasswordToken)
 
 // Route for resetting user's password after verification
-router.post("/reset-password", updatePassword);
+router.post("/reset-password", resetPassword)
 
 // Export the router for use in the main application
-module.exports = router;
+module.exports = router
