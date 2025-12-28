@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+  console.log("hi")
   const { user, loading: profileLoading } = useSelector(
     (state) => state.profile
   );
